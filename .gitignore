@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/.vscode
+/node_modules
+/obj
+/bin
+/.vscode
+/wwwroot/uploads
+/wwwroot/assets/css
+/wwwroot/assets/js
+*.dbmdl
+*.jfm
+**/localappsettings.json
+*.user
