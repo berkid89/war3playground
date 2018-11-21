@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Piranha;
 using System;
+using war3playground.Models;
 
 namespace war3playground.Controllers
 {
@@ -12,7 +13,7 @@ namespace war3playground.Controllers
         /// Default constructor.
         /// </summary>
         /// <param name="api">The current api</param>
-        public CmsController(IApi api) 
+        public CmsController(IApi api)
         {
             _api = api;
         }
@@ -27,8 +28,8 @@ namespace war3playground.Controllers
         /// <param name="category">The optional category</param>
         /// <param name="tag">The optional tag</param>
         [Route("archive")]
-        public IActionResult Archive(Guid id, int? year = null, int? month = null, int? page = null, 
-            Guid? category = null, Guid? tag = null) 
+        public IActionResult Archive(Guid id, int? year = null, int? month = null, int? page = null,
+            Guid? category = null, Guid? tag = null)
         {
             Models.BlogArchive model;
 
@@ -37,7 +38,7 @@ namespace war3playground.Controllers
             else if (tag.HasValue)
                 model = _api.Archives.GetByTagId<Models.BlogArchive>(id, tag.Value, page, year, month);
             else model = _api.Archives.GetById<Models.BlogArchive>(id, page, year, month);
-            
+
             return View(model);
         }
 
@@ -46,7 +47,7 @@ namespace war3playground.Controllers
         /// </summary>
         /// <param name="id">The unique page id</param>
         [Route("page")]
-        public IActionResult Page(Guid id) 
+        public IActionResult Page(Guid id)
         {
             var model = _api.Pages.GetById<Models.StandardPage>(id);
 
@@ -58,11 +59,17 @@ namespace war3playground.Controllers
         /// </summary>
         /// <param name="id">The unique post id</param>
         [Route("post")]
-        public IActionResult Post(Guid id) 
+        public IActionResult Post(Guid id)
         {
-            var model = _api.Posts.GetById<Models.BlogPost>(id);
+            var model = _api.Posts.GetById<KingOfTheHillPost>(id);
 
-            return View(model);
+            model.PlayerBlue = new BusinessLogic.Models.Player();
+            model.PlayerBlue.FullName = "sadasd 1111";
+
+            model.PlayerRed = new BusinessLogic.Models.Player();
+            model.PlayerRed.FullName = "sadasd 2222";
+            
+            return View(model.TypeId, model);
         }
     }
 }
