@@ -15,3 +15,4 @@
 *.jfm
 **/localappsettings.json
 *.user
+package-lock.json
