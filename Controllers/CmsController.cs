@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Piranha;
 using System;
-using war3playground.BusinessLogic.Models.Interfaces;
-using war3playground.BusinessLogic.Services.Interfaces;
 using war3playground.Models;
 
 namespace war3playground.Controllers
@@ -10,16 +8,14 @@ namespace war3playground.Controllers
     public class CmsController : Controller
     {
         private readonly IApi _api;
-        private readonly IPlayerService playerService;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
         /// <param name="api">The current api</param>
-        public CmsController(IApi api, IPlayerService playerService)
+        public CmsController(IApi api)
         {
             _api = api;
-            this.playerService = playerService;
         }
 
         /// <summary>
@@ -65,26 +61,15 @@ namespace war3playground.Controllers
         [Route("post")]
         public IActionResult Post(Guid id)
         {
-            return toConcretePost(id, _api.Posts.GetById(id).TypeId);
-        }
+            var model = _api.Posts.GetById<KingOfTheHillPost>(id);
 
-        private ViewResult toConcretePost(Guid id, string type)
-        {
-            IW3Post post = null;
+            model.PlayerBlue = new BusinessLogic.Models.Player();
+            model.PlayerBlue.FullName = "sadasd 1111";
 
-            switch (type)
-            {
-                case "KingOfTheHillPost":
-                    post = _api.Posts.GetById<KingOfTheHillPost>(id);
-                    break;
-                default:
-                    post = _api.Posts.GetById<BlogPost>(id);
-                    break;
-            }
-
-            post.Init(playerService);
-
-            return View(type, post);
+            model.PlayerRed = new BusinessLogic.Models.Player();
+            model.PlayerRed.FullName = "sadasd 2222";
+            
+            return View(model.TypeId, model);
         }
     }
 }
