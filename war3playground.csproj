@@ -26,13 +26,4 @@
     <PackageReference Include="Squire.Core" Version="2.0.2" />
     <PackageReference Include="Squire.Monitoring" Version="2.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Views\Cms\DisplayTemplates\Player.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Cms\KingOfTheHillPost.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
 </Project>

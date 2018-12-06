@@ -10,9 +10,6 @@ using Piranha.AspNetCore.Identity.SQLite;
 using Piranha.AspNetCore.Identity.SQLServer;
 using Serilog;
 using Squire.Core.Middlewares;
-using war3playground.BusinessLogic.DatabaseContexts;
-using war3playground.BusinessLogic.Services;
-using war3playground.BusinessLogic.Services.Interfaces;
 using war3playground.BusinessLogic.Settings;
 
 namespace war3playground
@@ -45,7 +42,6 @@ namespace war3playground
             services.AddResponseCompression();
 
             services.AddSingleton(p => settings);
-            services.AddDbContextPool<W3PContext>(p => p.UseSqlServer(settings.ConnectionString));
             services.AddSingleton(p => logger);
 
             services.AddMvc(config =>
@@ -67,7 +63,6 @@ namespace war3playground
             services.AddPiranhaMemCache();
 
             //Services
-            services.AddScoped<IPlayerService, PlayerService>();
 
             return services.BuildServiceProvider();
         }
@@ -88,8 +83,7 @@ namespace war3playground
             pageTypeBuilder.Build()
                 .DeleteOrphans();
             var postTypeBuilder = new Piranha.AttributeBuilder.PostTypeBuilder(api)
-                .AddType(typeof(Models.BlogPost))
-                .AddType(typeof(Models.KingOfTheHillPost));
+                .AddType(typeof(Models.BlogPost));
             postTypeBuilder.Build()
                 .DeleteOrphans();
             var siteTypeBuilder = new Piranha.AttributeBuilder.SiteTypeBuilder(api)
