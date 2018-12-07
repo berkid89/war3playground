@@ -79,7 +79,9 @@ namespace war3playground
             // Build content types
             var pageTypeBuilder = new Piranha.AttributeBuilder.PageTypeBuilder(api)
                 .AddType(typeof(Models.BlogArchive))
-                .AddType(typeof(Models.StandardPage));
+                .AddType(typeof(Models.StandardPage))
+                .AddType(typeof(Models.LiveStreamsPage))
+                .AddType(typeof(Models.ChatPage));
             pageTypeBuilder.Build()
                 .DeleteOrphans();
             var postTypeBuilder = new Piranha.AttributeBuilder.PostTypeBuilder(api)

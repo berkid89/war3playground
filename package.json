@@ -1,9 +1,9 @@
 {
-  "name": "blog",
+  "name": "w3pg",
   "version": "4.2.0",
-  "description": "Basic Blog Template for Piranha CMS",
+  "description": "Warcraft 3 Playground",
   "main": "index.js",
-  "author": "Håkan Edling",
+  "author": "berkid89",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.6",
